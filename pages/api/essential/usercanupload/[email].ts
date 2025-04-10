@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Cors from 'cors'
 import initMiddleware from '@/lib/init-middleware'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -12,14 +14,7 @@ const cors = initMiddleware(
 
 Airtable.configure({ apiKey: process.env.AIRTABLE_KEY, endpointUrl: 'https://api.airtable.com' });
 const venueHouseBase = Airtable.base('app0bMO8gPe4LCRL0');
-console.log('the key', process.env.AIRTABLE_KEY)
 
-// Sample data
-const products = [
-  { id: '1', name: 'Phone' },
-  { id: '2', name: 'Laptop' },
-  { id: '3', name: 'Tablet' },
-]
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     await cors(req, res)
@@ -32,9 +27,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         const maxPosts = 1
         let postCount = 0
-        const resew = await venueHouseBase('Venue House').select({
+        venueHouseBase('Venue House').select({
             filterByFormula: `{email} = '${email}'`,
-        }).firstPage(async function (err: any, records: any) {
+        }).firstPage(async function (err: object, records: any) {
             if (err) {
                 console.log('error here', err)
                 throw new Error(JSON.stringify(err))
