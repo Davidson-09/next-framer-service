@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
             console.log('json', JSON.stringify(records?.length, null, 3))
             postCount = records?.length
-            return res.status(200).json({ message: 'email checked', canUpload: postCount < maxPosts});
+            return res.status(200).json({ message: 'email checked', canUpload: records?.length === 0});
         })
         
     } catch (e){
