@@ -25,8 +25,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (method === 'GET') {
     try {
-        const maxPosts = 1
-        let postCount = 0
+        // const maxPosts = 1
+        // let postCount = 0
         venueHouseBase('Venue House').select({
             filterByFormula: `{email} = '${email}'`,
         }).firstPage(async function (err: object, records: any) {
@@ -35,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 throw new Error(JSON.stringify(err))
             }
             console.log('json', JSON.stringify(records?.length, null, 3))
-            postCount = records?.length
+            // postCount = records?.length
             return res.status(200).json({ message: 'email checked', canUpload: records?.length === 0});
         })
         
